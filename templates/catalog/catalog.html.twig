@@ -1,0 +1,110 @@
+{% extends 'base_content.html.twig' %}
+
+{% block title %}Категория{% endblock %}
+
+    {% block content %}
+
+        <div class="Section Section_column Section_columnLeft">
+            <div class="wrap">
+                <div class="Section-column">
+                    <div class="Section-columnSection">
+                        <header class="Section-header">
+                            <strong class="Section-title">Фильтр</strong>
+                        </header>
+                        <div class="Section-columnContent">
+                            <form class="form" action="#" method="post">
+                                <div class="form-group">
+                                    <div class="range Section-columnRange">
+                                        <span class="irs irs--flat js-irs-0"><span class="irs"><span class="irs-line" tabindex="0"></span><span class="irs-min" style="visibility: hidden;">7</span><span class="irs-max" style="visibility: visible;">50</span><span class="irs-from" style="visibility: visible; left: 0.167039%;">7</span><span class="irs-to" style="visibility: visible; left: 42.141%;">27</span><span class="irs-single" style="visibility: hidden; left: 16.1581%;">7 — 27</span></span><span class="irs-grid"></span><span class="irs-bar" style="left: 3.28947%; width: 43.4517%;"></span><span class="irs-shadow shadow-from" style="display: none;"></span><span class="irs-shadow shadow-to" style="display: none;"></span><span class="irs-handle from" style="left: 0%;"><i></i><i></i><i></i></span><span class="irs-handle to type_last" style="left: 43.4517%;"><i></i><i></i><i></i></span></span><input class="range-line irs-hidden-input" id="price" name="price" type="text" data-type="double" data-min="7" data-max="50" data-from="7" data-to="27" tabindex="-1" readonly="">
+                                        <div class="range-price">Цена:
+                                            <div class="rangePrice">$7 - $27</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-input form-input_full" id="title" name="title" type="text" placeholder="Название">
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-selectWrap"><select class="form-select">
+                                            <option selected="selected" disabled="disabled">Продавец</option>
+                                            <option value="kkk">Kkkk</option>
+                                            <option value="sdfsdf">sdfsdf</option>
+                                        </select></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="toggle">
+                                        <input type="checkbox"><span class="toggle-box"></span><span class="toggle-text">Только с небитым экраном</span>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-selectWrap"><select class="form-select" multiple="" size="4">
+                                            <option disabled="disabled">Объем памяти</option>
+                                            <option>1Гб</option>
+                                            <option>2Гб</option>
+                                            <option>4Гб</option>
+                                            <option>8Гб</option>
+                                            <option>многоГб</option>
+                                            <option>оченьмногоГб</option>
+                                            <option>взвесьтемнеполкилоГб</option>
+                                        </select></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="buttons"><a class="btn btn_square btn_dark btn_narrow" href="#">Применить</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="Section-content">
+                    <div class="Sort">
+                        <div class="Sort-title">Сортировать по:
+                        </div>
+                        <div class="Sort-variants"><a class="Sort-sortBy Sort-sortBy_dec" href="#">Популярности</a><a class="Sort-sortBy" href="#">Цене</a><a class="Sort-sortBy" href="#">Отзывам</a><a class="Sort-sortBy Sort-sortBy_inc" href="#">Новизне</a>
+                        </div>
+                    </div>
+                    <div class="Cards">
+
+                        {% for item in items %}
+                            <div class="Card"><a class="Card-picture" href="#"><img src="{{ item.img }}" alt="card.jpg"></a>
+                                <div class="Card-content">
+                                    <strong class="Card-title"><a href="product.html">{{ item.desc }}</a>
+                                    </strong>
+                                    <div class="Card-description">
+                                        <div class="Card-cost"><span class="Card-priceOld">${{ item.price }}</span><span class="Card-price">${{ item.price_sale }}</span>
+                                        </div>
+                                        <div class="Card-category">{{ item.category }}</div>
+                                        <div class="Card-hover"><a class="Card-btn" href="#"><img src="assets/img/icons/card/bookmark.svg" alt="bookmark.svg"></a><a class="Card-btn" href="#"><img src="assets/img/icons/card/cart.svg" alt="cart.svg"></a><a class="Card-btn" href="#"><img src="assets/img/icons/card/change.svg" alt="change.svg"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="Card-sale">-60%
+                                </div>
+                            </div>
+                        {% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                    <div class="Pagination">
+                        <div class="Pagination-ins"><a class="Pagination-element Pagination-element_prev" href="#"><img src="assets/img/icons/prevPagination.svg" alt="prevPagination.svg"></a><a class="Pagination-element Pagination-element_current" href="#"><span class="Pagination-text">1</span></a><a class="Pagination-element" href="#"><span class="Pagination-text">2</span></a><a class="Pagination-element" href="#"><span class="Pagination-text">3</span></a><a class="Pagination-element Pagination-element_prev" href="#"><img src="assets/img/icons/nextPagination.svg" alt="nextPagination.svg"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    {% endblock %}
+
