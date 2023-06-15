@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="Middle Middle_top">
+        <div class="Middle-top">
+            <div class="wrap">
+                <div class="Middle-header">
+                    <h1 class="Middle-title">{{ category.name }}</h1>
+                    <ul class="breadcrumbs Middle-breadcrumbs">
+                        <li class="breadcrumbs-item"><a href="/">Главная</a></li>
+                        <li class="breadcrumbs-item breadcrumbs-item_current"><span>{{ category.name }}</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% block content %}
+
+        {% endblock %}
+    </div>
+{% endblock %}
