@@ -30,8 +30,6 @@ class catalogController extends pagesController
             8 /*limit per page*/
         );
 
-
-
         return $this->render('/category/show.html.twig', [
             'category' => $category,
             'categorys' => $this->getCategory($repository),

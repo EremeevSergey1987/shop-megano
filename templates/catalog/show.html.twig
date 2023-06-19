@@ -68,7 +68,8 @@
                         {% for item in items %}
                             <div class="Card"><a class="Card-picture" href="#"><img src="{{ item.img }}" alt="card.jpg"></a>
                                 <div class="Card-content">
-                                    <strong class="Card-title"><a href="product.html">{{ item.desc }}</a>
+                                    <strong class="Card-title">
+                                        <a href="product.html">{{ item.desc }}</a>
                                     </strong>
                                     <div class="Card-description">
                                         <div class="Card-cost"><span class="Card-priceOld">${{ item.price }}</span><span class="Card-price">${{ item.price_sale }}</span>

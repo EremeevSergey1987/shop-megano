@@ -3,8 +3,11 @@
 namespace App\Controller;
 use App\Entity\Category;
 use App\Repository\CategoryRepository;
+use App\Repository\ProductsRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -27,7 +30,12 @@ class pagesController extends AbstractController
     /**
      * @Route("/{slug}", name="app_page")
      */
-    public function pages($slug, CategoryRepository $repository){
+    public function pages($slug,
+                          CategoryRepository $repository,
+                          PaginatorInterface $paginator,
+                          ProductsRepository $productsRepository,
+                          Request $request,
+    ){
         if($slug == 'contacts') {
             return $this->render('pages/contacts.html.twig', [
                 'category' => ['name' => 'Контакты'],
@@ -48,7 +56,16 @@ class pagesController extends AbstractController
             ]);
         }
         if($slug == 'catalog') {
+
+            $pagination = $paginator->paginate(
+                $productsRepository->findAll(), /* query NOT result */
+                $request->query->getInt('page', 1), /*page number*/
+                8 /*limit per page*/
+            );
+            //dd($pagination);
+
             return $this->render('catalog/catalog.html.twig', [
+                'items' => $pagination,
                 'category' => ['name' => 'Каталог'],
                 'categorys' => $this->getCategory($repository),
             ]);

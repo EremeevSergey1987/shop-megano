@@ -65,15 +65,20 @@
                     </div>
                     <div class="Cards">
 
+
                         {% for item in items %}
-                            <div class="Card"><a class="Card-picture" href="#"><img src="{{ item.img }}" alt="card.jpg"></a>
+                            <div class="Card">
+                                <a href="/category/{{ item.category.slug }}/{{ item.slug }}">{{ item.name }}
+                                    <img src="{{ item.img }}" alt="card.jpg">
+                                </a>
                                 <div class="Card-content">
-                                    <strong class="Card-title"><a href="product.html">{{ item.desc }}</a>
+                                    <strong class="Card-title">
+                                        <a href="/category/{{ item.category.slug }}/{{ item.slug }}">{{ item.name }}</a>
                                     </strong>
                                     <div class="Card-description">
-                                        <div class="Card-cost"><span class="Card-priceOld">${{ item.price }}</span><span class="Card-price">${{ item.price_sale }}</span>
+                                        <div class="Card-cost"><span class="Card-priceOld">${{ item.price }}</span><span class="Card-price">${{ item.price*2 }}</span>
                                         </div>
-                                        <div class="Card-category">{{ item.category }}</div>
+                                        <div class="Card-category"></div>
                                         <div class="Card-hover"><a class="Card-btn" href="#"><img src="assets/img/icons/card/bookmark.svg" alt="bookmark.svg"></a><a class="Card-btn" href="#"><img src="assets/img/icons/card/cart.svg" alt="cart.svg"></a><a class="Card-btn" href="#"><img src="assets/img/icons/card/change.svg" alt="change.svg"></a>
                                         </div>
                                     </div>
@@ -95,10 +100,12 @@
 
 
                     </div>
-                    <div class="Pagination">
-                        <div class="Pagination-ins"><a class="Pagination-element Pagination-element_prev" href="#"><img src="assets/img/icons/prevPagination.svg" alt="prevPagination.svg"></a><a class="Pagination-element Pagination-element_current" href="#"><span class="Pagination-text">1</span></a><a class="Pagination-element" href="#"><span class="Pagination-text">2</span></a><a class="Pagination-element" href="#"><span class="Pagination-text">3</span></a><a class="Pagination-element Pagination-element_prev" href="#"><img src="assets/img/icons/nextPagination.svg" alt="nextPagination.svg"></a>
-                        </div>
-                    </div>
+
+
+                    {{ knp_pagination_render(items) }}
+
+
+
                 </div>
             </div>
         </div>
