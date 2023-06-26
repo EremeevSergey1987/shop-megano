@@ -7,6 +7,7 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Generator\UrlGenerator;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -16,10 +17,12 @@ use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationExc
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\CustomCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use App\Entity\User;
+
 
 class LoginFormAuthenticator extends AbstractAuthenticator
 {
@@ -27,16 +30,20 @@ class LoginFormAuthenticator extends AbstractAuthenticator
     private UserRepository $userRepository;
     private CsrfTokenManagerInterface $csrfToken;
     private UrlGeneratorInterface $urlGenerator;
+    private UserPasswordHasherInterface $passwordHasher;
 
     public function __construct(
         UserRepository $userRepository,
         CsrfTokenManagerInterface $csrfToken,
-        UrlGeneratorInterface $urlGenerator
+        UrlGeneratorInterface $urlGenerator,
+        UserPasswordHasherInterface $passwordHasher
+
     )
     {
         $this->userRepository = $userRepository;
         $this->csrfToken = $csrfToken;
         $this->urlGenerator = $urlGenerator;
+        $this->passwordHasher = $passwordHasher;
     }
 
     public function supports(Request $request): ?bool
@@ -54,24 +61,24 @@ class LoginFormAuthenticator extends AbstractAuthenticator
             $email
         );
 
+
+
         return new Passport(
             new UserBadge($email),
             new CustomCredentials(function ($credentials, User $user){
-                return $credentials == $user->getPassword();
-            }, $password)
+                return $this->passwordHasher->isPasswordValid($user, $credentials);
+            }, $password),
+
         );
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        //return new RedirectResponse('/login');
         return new RedirectResponse($this->urlGenerator->generate('app_homepage'));
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
-        //dd($exception);
-
         if ($request->hasSession()) {
             $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
             //return throw new CustomUserMessageAuthenticationException('error custom ');
