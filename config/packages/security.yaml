@@ -19,6 +19,9 @@ security:
             logout:
                 path: app_logout
             custom_authenticator: App\Security\LoginFormAuthenticator
+        secured_area:
+            form_login:
+                enable_csrf: true
 
 
 #            form_login:

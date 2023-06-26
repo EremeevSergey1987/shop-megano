@@ -10,12 +10,14 @@
     <div class="Section">
         <div class="wrap">
             <form class="form Authorization" action="#" method="post">
+
                 {% if error %}
                     <p style="color:red">{{ error.messageKey|trans(error.messageData, 'security') }}</p>
                 {% endif %}
                 {% if app.user %}
                     You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
                 {% endif %}
+
                 <div class="row">
                     <div class="row-block">
                         <div class="form-group">
@@ -26,12 +28,13 @@
                             <label class="form-label" for="password">Пароль</label>
                             <input class="form-input" id="password" name="password" type="password" placeholder="Ваш пароль">
                         </div>
-                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
                         <div class="form-group">
                             <button class="btn btn_primary" type="submit">Войти</button>
                         </div>
                     </div>
                 </div>
+
             </form>
         </div>
     </div>
