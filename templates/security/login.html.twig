@@ -31,6 +31,12 @@
                         <input type="hidden" name="token" value="{{ csrf_token('delete-item') }}"/>
 
                         <div class="form-group">
+                            <label class="form-label">
+                                <input type="checkbox" name="_remember_me" class="form-check-input"> Запомнить меня
+                            </label>
+                        </div>
+
+                        <div class="form-group">
                             <button class="btn btn_primary" type="submit">Войти</button>
                         </div>
                     </div>
