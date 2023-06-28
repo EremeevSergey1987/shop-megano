@@ -14,6 +14,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
+use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
@@ -55,6 +56,7 @@ class LoginFormAuthenticator extends AbstractAuthenticator
 
     public function authenticate(Request $request): Passport
     {
+        $csrf_token = $request->request->get('_csrf_token');
         $email = $request->request->get('email');
         $password = $request->request->get('password');
 
@@ -63,15 +65,13 @@ class LoginFormAuthenticator extends AbstractAuthenticator
             $email
         );
 
-
-
-
+        $csrf = new CsrfToken('authenticate', $csrf_token);
+        if (!$this->csrfToken->isTokenValid($csrf)){
+            throw new InvalidCsrfTokenException();
+        }
 
         return new Passport(
-
             new UserBadge($email),
-
-
             new CustomCredentials(function ($credentials, User $user){
                 return $this->passwordHasher->isPasswordValid($user, $credentials);
             }, $password),
