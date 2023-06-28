@@ -19,6 +19,7 @@ security:
             logout:
                 path: app_logout
             custom_authenticator: App\Security\LoginFormAuthenticator
+
             remember_me:
                 secret: '%kernel.secret%' # required
                 lifetime: 604800 # 1 week in seconds
@@ -26,9 +27,13 @@ security:
                 # checkbox in the login form (see below), uncomment the
                 # following line to always enable it.
                 #always_remember_me: true
+            form_login: ~
+            entry_point: form_login
         secured_area:
             form_login:
                 enable_csrf: true
+                login_path: app_login
+                check_path: app_login
 
 
 #            form_login:
@@ -48,7 +53,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/sale, roles: admin }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

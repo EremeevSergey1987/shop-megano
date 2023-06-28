@@ -9,7 +9,7 @@
 
     <div class="Section">
         <div class="wrap">
-            <form class="form Authorization" action="#" method="post">
+            <form class="form Authorization" action="{{ path('app_login') }}" method="post">
 
                 {% if error %}
                     <p style="color:red">{{ error.messageKey|trans(error.messageData, 'security') }}</p>
@@ -28,7 +28,9 @@
                             <label class="form-label" for="password">Пароль</label>
                             <input class="form-input" id="password" name="password" type="password" placeholder="Ваш пароль">
                         </div>
+
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+                        <input type="hidden" name="_target_path" value="/account">
 
 
                         <div class="form-group">

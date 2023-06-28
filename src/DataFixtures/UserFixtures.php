@@ -23,14 +23,14 @@ class UserFixtures extends BaseFixtures
             $user
                 ->setEmail($this->faker->email())
                 ->setFirstName($this->faker->firstName)
-                ->setRoles(['user'])
+                ->setRoles(['ROLE_USER'])
                 ->setPassword($this->passwordHasher->hashPassword($user, '123456'));
         });
-        $this->createMany(User::class, 1, function (User $user){
+        $this->create(User::class, function (User $user){
             $user
                 ->setEmail('eremeev87@bk.ru')
                 ->setFirstName('Администратор')
-                ->setRoles(['admin'])
+                ->setRoles(['ROLE_ADMIN'])
                 ->setPassword($this->passwordHasher->hashPassword($user, '123456'));
         });
 

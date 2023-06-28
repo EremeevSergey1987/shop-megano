@@ -13,6 +13,7 @@ class SaleController extends pagesController
 
     public function index(CategoryRepository $repository): Response
     {
+        //$this->denyAccessUnlessGranted('ROLE_ADMIN');
         $sale_item = [
             [
                 'image' => 'image.jpg',
