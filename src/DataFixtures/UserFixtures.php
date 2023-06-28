@@ -26,7 +26,7 @@ class UserFixtures extends BaseFixtures
                 ->setRoles(['ROLE_USER'])
                 ->setPassword($this->passwordHasher->hashPassword($user, '123456'));
         });
-        $this->create(User::class, function (User $user){
+        $this->createMany(User::class, 1, function (User $user){
             $user
                 ->setEmail('eremeev87@bk.ru')
                 ->setFirstName('Администратор')
