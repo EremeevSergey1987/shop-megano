@@ -51,10 +51,10 @@ class SaleController extends pagesController
         ];
 
         return $this->render('sale/index.html.twig', [
-            'controller_name' => 'SaleController',
             'sale_item' => $sale_item,
             'category' => ['name' => 'Скидки'],
             'categorys' => $this->getCategory($repository),
+
         ]);
     }
 }
