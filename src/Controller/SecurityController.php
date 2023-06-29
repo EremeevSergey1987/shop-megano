@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller;
 
 use App\Repository\CategoryRepository;
@@ -12,18 +11,25 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 
 class SecurityController extends AbstractController
 {
+    use TargetPathTrait;
 
     private EntityManagerInterface $entityManager;
+    private UrlGeneratorInterface $urlGenerator;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator,)
     {
         $this->entityManager = $entityManager;
+        $this->urlGenerator = $urlGenerator;
     }
+
 
     public function getCategory(CategoryRepository $repository)
     {
@@ -48,7 +54,6 @@ class SecurityController extends AbstractController
             'last_username' => $lastUsername,
             'category' => ['name' => 'Вход'],
             'categorys' => $this->getCategory($repository),
-
             'error' => $error]);
     }
 
@@ -60,6 +65,7 @@ class SecurityController extends AbstractController
         CategoryRepository $repository,
         UserPasswordHasherInterface $passwordHasher,
         LoginFormAuthenticator $authenticator,
+        Security $security,
     )
     {
         if($request->isMethod('POST')){
@@ -69,11 +75,11 @@ class SecurityController extends AbstractController
                 ->setFirstName($request->request->get('first_name'))
                 ->setPassword($passwordHasher->hashPassword($user, $request->request->get('password')))
                 ->setRoles(['ROLE_USER']);
-
             $this->entityManager->persist($user);
+            $security->login($user, LoginFormAuthenticator::class);
             $this->entityManager->flush();
             $authenticator->authenticate($request);
-            return new RedirectResponse('app_account');
+            return new RedirectResponse('/cart');
         }
         return $this->render('pages/register.html.twig', [
             'category' => ['name' => 'Регистрация'],
