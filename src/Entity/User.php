@@ -4,10 +4,14 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity(fields: "email", message: "Вы уже зарегистрированы")]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -16,6 +20,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\NotBlank()]
+    #[Assert\Email()]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -25,9 +31,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Assert\Length(
+        min: 5,
+        max: 50,
+        minMessage: 'Ваш пароль должен быть хотя бы {{ limit }} символов в длину',
+        maxMessage: 'Ваш пароль не может быть больше {{ limit }} символов в длину',
+    )]
     private ?string $password = null;
 
+
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: 'Ваше имя должно быть хотя бы {{ limit }} символов в длину',
+        maxMessage: 'Ваше имя не может быть больше {{ limit }} символов в длину',
+    )]
     private ?string $FirstName = null;
 
     public function getId(): ?int

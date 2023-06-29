@@ -4,45 +4,36 @@
     <div class="Section">
         <div class="wrap">
 
-            {% if error %}
-                <p style="color:red">{{ error.messageKey|trans(error.messageData, 'security') }}</p>
-            {% endif %}
-
             {% if app.user %}
                 <p>Вы уже зарегистрированы да еще и авторизованы!</p>
                 <p>Что еще нужно-то?</p> <p>{{ app.user.userIdentifier }},</p>
                 <a href="{{ path('app_logout') }}">Logout</a>
             {% else %}
 
-            <form class="form Authorization" action="#" method="post">
+            {{ form_start(registrationForm, {
+                attr: { class: 'form Authorization' }
+            }) }}
+
                 <div class="row">
-                    <div class="row-block">
-                        <div class="form-group">
-                            <label class="form-label" for="first_name">Имя</label>
-                            <input class="form-input" id="first_name" name="first_name" type="text" data-validate="require">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="email">E-mail</label>
-                            <input class="form-input" id="email" name="email" type="text" placeholder="send@test.test">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="password">Пароль</label>
-                            <input class="form-input" id="password" name="password" type="password" placeholder="Выберите пароль">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="passwordReply">Подтверждение пароля</label>
-                            <input class="form-input" id="passwordReply" name="passwordReply" type="password" placeholder="Введите пароль повторно">
-                        </div>
-                        <div class="form-group">
-                            <button class="btn btn_primary" type="submit">Зарегистрироваться</button>
-                        </div>
-                    </div>
+                <div class="row-block">
+                    <div class="form-group">{{ form_row(registrationForm.email, {
+                            attr: { placeholder: 'Почта'}
+
+                        }) }}</div>
+                    <div class="form-group">{{ form_row(registrationForm.FirstName, {
+                            attr: { placeholder: 'Имя'}
+                        }) }}</div>
+                    <div class="form-group">{{ form_row(registrationForm.password, {
+                            attr: { placeholder: 'Пароль'}
+
+                        }) }}</div>
+                <div class="form-group">
+                    <button class="btn btn_primary" type="submit">Зарегистрироваться</button>
                 </div>
-            </form>
-
+                </div>
+            </div>
+            {{ form_end(registrationForm) }}
             {% endif %}
-
         </div>
     </div>
 {% endblock %}
-

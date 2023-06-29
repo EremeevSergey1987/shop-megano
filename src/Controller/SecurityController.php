@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Form\UserRegistrationFormType;
 use App\Repository\CategoryRepository;
 use App\Entity\User;
 use App\Security\LoginFormAuthenticator;
@@ -66,22 +67,27 @@ class SecurityController extends AbstractController
         UserPasswordHasherInterface $passwordHasher,
         Security $security,
     )
+
     {
-        if($request->isMethod('POST')){
-            $user = new User();
+        $form = $this->createForm(UserRegistrationFormType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            /** @var User $user */
+            $user = $form->getData();
             $user
-                ->setEmail($request->request->get('email'))
-                ->setFirstName($request->request->get('first_name'))
-                ->setPassword($passwordHasher->hashPassword($user, $request->request->get('password')))
+                ->setPassword($passwordHasher->hashPassword($user, $user->getPassword()))
                 ->setRoles(['ROLE_USER']);
             $this->entityManager->persist($user);
             $security->login($user, LoginFormAuthenticator::class);
             $this->entityManager->flush();
             return new RedirectResponse('/cart');
         }
+
+
         return $this->render('pages/register.html.twig', [
             'category' => ['name' => 'Регистрация'],
             'categorys' => $this->getCategory($repository),
+            'registrationForm' => $form->createView(),
             'error' => '',
         ]);
     }
