@@ -64,7 +64,6 @@ class SecurityController extends AbstractController
         Request $request,
         CategoryRepository $repository,
         UserPasswordHasherInterface $passwordHasher,
-        LoginFormAuthenticator $authenticator,
         Security $security,
     )
     {
@@ -78,7 +77,6 @@ class SecurityController extends AbstractController
             $this->entityManager->persist($user);
             $security->login($user, LoginFormAuthenticator::class);
             $this->entityManager->flush();
-            $authenticator->authenticate($request);
             return new RedirectResponse('/cart');
         }
         return $this->render('pages/register.html.twig', [
