@@ -14,36 +14,39 @@
                 {% if error %}
                     <p style="color:red">{{ error.messageKey|trans(error.messageData, 'security') }}</p>
                 {% endif %}
+
                 {% if app.user %}
                     You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-                {% endif %}
+                {% else %}
+                    <div class="row">
+                        <div class="row-block">
+                            <div class="form-group">
+                                <label class="form-label" for="email">E-mail</label>
+                                <input class="form-input" id="email" name="email" type="text" value="{{ last_username }}">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="password">Пароль</label>
+                                <input class="form-input" id="password" name="password" type="password" placeholder="Ваш пароль">
+                            </div>
 
-                <div class="row">
-                    <div class="row-block">
-                        <div class="form-group">
-                            <label class="form-label" for="email">E-mail</label>
-                            <input class="form-input" id="email" name="email" type="text" value="{{ last_username }}">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="password">Пароль</label>
-                            <input class="form-input" id="password" name="password" type="password" placeholder="Ваш пароль">
-                        </div>
-
-                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
-                        <input type="hidden" name="_target_path" value="/account">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+                            <input type="hidden" name="_target_path" value="/account">
 
 
-                        <div class="form-group">
-                            <label class="form-label">
-                                <input type="checkbox" name="_remember_me" class="form-check-input"> Запомнить меня
-                            </label>
-                        </div>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <input type="checkbox" name="_remember_me" class="form-check-input"> Запомнить меня
+                                </label>
+                            </div>
 
-                        <div class="form-group">
-                            <button class="btn btn_primary" type="submit">Войти</button>
+                            <div class="form-group">
+                                <button class="btn btn_primary" type="submit">Войти</button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                {% endif %}
+
+
 
             </form>
         </div>

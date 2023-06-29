@@ -55,10 +55,11 @@ class SecurityController extends AbstractController
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(\Symfony\Component\HttpFoundation\Request $request,
-                             CategoryRepository $repository,
-                             UserPasswordHasherInterface $passwordHasher,
-                             LoginFormAuthenticator $authenticator
+    public function register(
+        Request $request,
+        CategoryRepository $repository,
+        UserPasswordHasherInterface $passwordHasher,
+        LoginFormAuthenticator $authenticator,
     )
     {
         if($request->isMethod('POST')){
@@ -66,21 +67,22 @@ class SecurityController extends AbstractController
             $user
                 ->setEmail($request->request->get('email'))
                 ->setFirstName($request->request->get('first_name'))
-                ->setPassword($request->request->get('password'))
-                ->setRoles(['user']);
+                ->setPassword($passwordHasher->hashPassword($user, $request->request->get('password')))
+                ->setRoles(['ROLE_USER']);
 
             $this->entityManager->persist($user);
             $this->entityManager->flush();
             $authenticator->authenticate($request);
-
-
-            return new RedirectResponse('/');
+            return new RedirectResponse('app_account');
         }
         return $this->render('pages/register.html.twig', [
             'category' => ['name' => 'Регистрация'],
             'categorys' => $this->getCategory($repository),
+            'error' => '',
         ]);
     }
+
+
 
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): void
