@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class UserRegistrationFormType extends AbstractType
 {
@@ -19,7 +20,14 @@ class UserRegistrationFormType extends AbstractType
         $builder
             ->add('FirstName', TextType::class, ['label' => 'Имя'])
             ->add('email', EmailType::class, ['label' => 'Почта'])
-            ->add('password', PasswordType::class, ['label' => 'Пароль'])
+            ->add('password', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'invalid_message' => 'Пароли не совпадают',
+                'options' => ['attr' => ['class' => 'password-field']],
+                'required' => true,
+                'first_options'  => ['label' => 'Пароль'],
+                'second_options' => ['label' => 'Повтор пароля'],
+            ]);
         ;
     }
 

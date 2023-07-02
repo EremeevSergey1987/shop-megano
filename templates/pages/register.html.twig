@@ -4,6 +4,19 @@
     <div class="Section">
         <div class="wrap">
 
+<style>
+    label.required:before {
+        content: "* ";
+        color: red;
+    }
+    .form-group ul li{
+        color: red;
+        border: 1px solid red;
+        padding: 3px 10px;
+        border-radius: 3px;
+    }
+</style>
+
             {% if app.user %}
                 <p>Вы уже зарегистрированы да еще и авторизованы!</p>
                 <p>Что еще нужно-то?</p> <p>{{ app.user.userIdentifier }},</p>
@@ -17,22 +30,34 @@
                 <div class="row">
                 <div class="row-block">
                     <div class="form-group">{{ form_row(registrationForm.email, {
-                            attr: { placeholder: 'Почта'}
-
+                            attr: { placeholder: 'Почта' }
                         }) }}</div>
                     <div class="form-group">{{ form_row(registrationForm.FirstName, {
                             attr: { placeholder: 'Имя'}
                         }) }}</div>
-                    <div class="form-group">{{ form_row(registrationForm.password, {
+                    <div class="form-group">{{ form_row(registrationForm.password.first, {
                             attr: { placeholder: 'Пароль'}
+                        }) }}
+                    </div>
+                    <div class="form-group">{{ form_row(registrationForm.password.second, {
+                            attr: { placeholder: 'Повтор пароля'}
+                        }) }}
+                    </div>
 
-                        }) }}</div>
+
+
                 <div class="form-group">
                     <button class="btn btn_primary" type="submit">Зарегистрироваться</button>
                 </div>
+
+                <div class="form-group">
+                    <a href="{{ path('app_forgot_password_request') }}">Забыли пароль?</a>
+                </div>
+
                 </div>
             </div>
             {{ form_end(registrationForm) }}
+
             {% endif %}
         </div>
     </div>
