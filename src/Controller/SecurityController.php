@@ -6,10 +6,13 @@ use App\Repository\CategoryRepository;
 use App\Entity\User;
 use App\Security\LoginFormAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -66,6 +69,7 @@ class SecurityController extends AbstractController
         CategoryRepository $repository,
         UserPasswordHasherInterface $passwordHasher,
         Security $security,
+        MailerInterface $mailer,
     )
 
     {
@@ -80,6 +84,18 @@ class SecurityController extends AbstractController
             $this->entityManager->persist($user);
             $security->login($user, LoginFormAuthenticator::class);
             $this->entityManager->flush();
+
+            $email = (new TemplatedEmail())
+                ->from('ya.colgon@yandex.ru')
+                ->to($user->getEmail())
+                ->subject('Вы зарегистрировались на сайте')
+                ->htmlTemplate('email/register.html.twig')
+                ->context([
+                    'user' => $user
+                ])
+            ;
+            $mailer->send($email);
+
             return new RedirectResponse('/cart');
         }
 
