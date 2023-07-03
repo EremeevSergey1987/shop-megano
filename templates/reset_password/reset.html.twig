@@ -1,12 +1,14 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_content.html.twig' %}
 
-{% block title %}Reset your password{% endblock %}
+{% block title %}Сбросьте свой пароль{% endblock %}
 
-{% block body %}
-    <h1>Reset your password</h1>
-
-    {{ form_start(resetForm) }}
-        {{ form_row(resetForm.plainPassword) }}
-        <button class="btn btn-primary">Reset password</button>
-    {{ form_end(resetForm) }}
+{% block content %}
+<div class="Section">
+    <div class="wrap">
+        {{ form_start(resetForm) }}
+            {{ form_row(resetForm.plainPassword) }}
+            <button class="btn btn-primary">Reset password</button>
+        {{ form_end(resetForm) }}
+    </div>
+</div>
 {% endblock %}
