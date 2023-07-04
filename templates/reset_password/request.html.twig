@@ -1,6 +1,12 @@
 {% extends 'base_content.html.twig' %}
 {% block title %}Восстановление пароля{% endblock %}
 {% block content %}
+    <style>
+        .captcha_image{
+            display: flex;
+            margin-bottom: 10px;
+        }
+    </style>
 <div class="Section">
     <div class="wrap">
     {% for flash_error in app.flashes('reset_password_error') %}
@@ -12,6 +18,10 @@
             <small>
                 Напишите адрес электронной почты
             </small>
+        </div>
+        <div class="form-group">{{ form_row(requestForm.captcha, {
+                attr: { placeholder: 'Введите строку с картинки'}
+            }) }}
         </div>
         <div class="form-group">
             <button class="btn btn-primary" type="submit">Отправить инструкцию на электронную почту</button>

@@ -124,7 +124,7 @@
                         <h2>Привет!</h2>
                         <p>Чтобы сбросить свой пароль, пожалуйста, перейдите по следующей ссылке</p>
                         <a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a>
-                        <p>Срок действия этой ссылки истечет в {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
+                        <p>Срок действия этой ссылки истечет через {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
                         <p>Ваше здоровье!</p>
                         <p>Место знания - в голове, а мудрости - в сердце.</p>
                         <p><em>– Уильям Хэзлитт</em></p>
@@ -141,8 +141,8 @@
             <table>
                 <tr>
                     <td class="content footer" align="center">
-                        <p>Sent by <a href="#">Company Name</a>, 1234 Yellow Brick Road, OZ, 99999</p>
-                        <p><a href="mailto:">hello@company.com</a> | <a href="#">Unsubscribe</a></p>
+                        <p>Сделано в <a href="#">master-laser.ru</a>, 664023 Иркутск, Советская 109\3</p>
+                        <p><a href="mailto:">info@master-laser.ru</a> | <a href="#">Отписаться</a></p>
                     </td>
                 </tr>
             </table>
