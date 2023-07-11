@@ -1,9 +1,43 @@
 {% extends 'base_content.html.twig' %}
-{% block title %}Hello AccountController!{% endblock %}
+{% block title %}Личный кабинет{% endblock %}
 {% block content %}
     <div class="Section">
         <div class="wrap">
-            {{ dump(app.user) }}
+            <div class="Section">
+                <div class="wrap">
+                    <form class="form Cart" action="#" method="post">
+                        <div class="Cart-product">
+                            <div class="Cart-block Cart-block_row">
+                                <div class="Cart-block Cart-block_info"><a class="Cart-title" href="#">id</a>
+                                    <div class="Cart-desc">{{ app.user.id }}
+                                    </div>
+                                </div>
+                                <div class="Cart-block Cart-block_info"><a class="Cart-title" href="#">Имя пользователя</a>
+                                    <div class="Cart-desc">{{ app.user.FirstName }}
+                                    </div>
+                                </div>
+                                <div class="Cart-block Cart-block_info"><a class="Cart-title" href="#">Почта</a>
+                                    <div class="Cart-desc">{{ app.user.email }}
+                                    </div>
+                                </div>
+                                <div class="Cart-block Cart-block_info"><a class="Cart-title" href="#">Роли</a>
+                                    <div class="Cart-desc">
+                                        {% for role in app.user.roles %}
+                                            <p>{{ role }}</p>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Cart-total">
+                            <div class="Cart-block"><a class="btn btn_success btn_lg" href="{{ path('app_account_edit') }}">Отредактировать личные данные</a>
+                            </div>
+                            <div class="Cart-block"><a class="btn btn_success btn_lg" href="#">Мои заказы</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

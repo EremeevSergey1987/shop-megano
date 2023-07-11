@@ -1,0 +1,20 @@
+{% extends 'base_content.html.twig' %}
+
+{% block title %}Редактирование данных{% endblock %}
+
+{% block content %}
+<div class="Section">
+    <div class="wrap">
+        <div class="Section">
+            <div class="wrap">
+            {{ form_start(EditUserForm) }}
+                {{ form_widget(EditUserForm) }}
+                <div class="form-group">
+                    <button class="btn btn_primary" type="submit">Поменять</button>
+                </div>
+            {{ form_end(EditUserForm) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

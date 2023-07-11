@@ -18,7 +18,7 @@ class AccountController extends pagesController
     {
         return $this->render('account/index.html.twig', [
             'categorys' => $this->getCategory($repository),
-            'category' => ['name' => 'Профиль'],
+            'category' => ['name' => 'Личный кабинет'],
         ]);
     }
 }
