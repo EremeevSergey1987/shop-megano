@@ -14,7 +14,6 @@ class AccountEditFormType extends AbstractType
         $builder
             ->add('FirstName')
             ->add('email')
-            ->add('password')
         ;
     }
 

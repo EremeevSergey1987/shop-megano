@@ -5,6 +5,13 @@
         <div class="wrap">
             <div class="Section">
                 <div class="wrap">
+
+                    {% if app.session.flashBag.peek('flash_message') | length > 0 %}
+                        {% for message in app.flashes('flash_message') %}
+                            <p style="color: red">{{ message }}</p>
+                        {% endfor %}
+                    {% endif %}
+
                     <form class="form Cart" action="#" method="post">
                         <div class="Cart-product">
                             <div class="Cart-block Cart-block_row">

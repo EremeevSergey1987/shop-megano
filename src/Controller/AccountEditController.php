@@ -28,6 +28,7 @@ class AccountEditController extends pagesController
     {
         $form = $this->createForm(AccountEditFormType::class);
         $form->handleRequest($request);
+
         if($form->isSubmitted() && $form->isValid()){
             /** @var User $user */
 //            $user = $form->getData();
@@ -37,8 +38,18 @@ class AccountEditController extends pagesController
 //            $em->refresh($user);
 //            return $this->redirectToRoute('app_account');
 
-            $id = 36;
+            // $user2 - это - то что мы вписали в форму
+            $user2 = $form->getData();
+
+
+
+
+            $id = $this->getUser()->getId();
+
+            // $user - это - то что он запросил из базы данных
             $user = $em->getRepository(User::class)->find($id);
+            //dd($user, $user2->getFirstName());
+
 
             if (!$user) {
                 throw $this->createNotFoundException(
@@ -46,8 +57,13 @@ class AccountEditController extends pagesController
                 );
             }
 
-            $user->setFirstName('New product name!');
+            $user
+                ->setFirstName($user2->getFirstName())
+                ->setEmail($this->getUser()->getEmail())
+            ;
+
             $em->flush();
+            $this->addFlash('flash_message', 'Данные поменял');
 
             return $this->redirectToRoute('app_account', [
                 'id' => $user->getId()
