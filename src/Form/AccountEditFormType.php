@@ -14,7 +14,7 @@ class AccountEditFormType extends AbstractType
     {
         $builder
             ->add('FirstName', TextType::class, ['label' => 'Имя'])
-            ->add('email')
+            //->add('email')
         ;
     }
 
