@@ -31,34 +31,20 @@ class AccountEditController extends pagesController
 
         if($form->isSubmitted() && $form->isValid()){
             /** @var User $user */
-//            $user = $form->getData();
-//            $user->setFirstName('888888');
-//            $em->persist($user);
-//            //$em->flush();
-//            $em->refresh($user);
-//            return $this->redirectToRoute('app_account');
-
             // $user2 - это - то что мы вписали в форму
-            $user2 = $form->getData();
-
-
-
-
+            $formData = $form->getData();
             $id = $this->getUser()->getId();
-
             // $user - это - то что он запросил из базы данных
             $user = $em->getRepository(User::class)->find($id);
-            //dd($user, $user2->getFirstName());
-
 
             if (!$user) {
                 throw $this->createNotFoundException(
-                    'No product found for id '.$id
+                    'No user found for id ' . $id
                 );
             }
 
             $user
-                ->setFirstName($user2->getFirstName())
+                ->setFirstName($formData->getFirstName())
                 ->setEmail($this->getUser()->getEmail())
             ;
 
@@ -68,8 +54,6 @@ class AccountEditController extends pagesController
             return $this->redirectToRoute('app_account', [
                 'id' => $user->getId()
             ]);
-
-
         }
 
         return $this->render('account_edit/index.html.twig', [
