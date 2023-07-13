@@ -30,24 +30,18 @@ class AccountEditController extends pagesController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            /** @var User $user */
-            // $user2 - это - то что мы вписали в форму
+
             $formData = $form->getData();
-            $id = $this->getUser()->getId();
-            // $user - это - то что он запросил из базы данных
-            $user = $em->getRepository(User::class)->find($id);
+
+            $user = $em->getRepository(User::class)->find($this->getUser()->getId());
 
             if (!$user) {
                 throw $this->createNotFoundException(
-                    'No user found for id ' . $id
+                    'No user found for id ' . $this->getUser()->getId()
                 );
             }
 
-            $user
-                ->setFirstName($formData->getFirstName())
-                ->setEmail($this->getUser()->getEmail())
-            ;
-
+            $user->setFirstName($formData->getFirstName());
             $em->flush();
             $this->addFlash('flash_message', 'Данные поменял');
 
