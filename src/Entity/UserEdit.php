@@ -18,6 +18,10 @@ class UserEdit implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
+
+    #[ORM\Column(length: 255, unique: false)]
+    private ?string $imageFilename = null;
+
     #[ORM\Column(length: 180, unique: true)]
 
     #[Assert\Email()]
@@ -127,6 +131,17 @@ class UserEdit implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFirstName(?string $FirstName): self
     {
         $this->FirstName = $FirstName;
+
+        return $this;
+    }
+
+    public function getImageFilename(): ?string
+    {
+        return $this->imageFilename;
+    }
+    public function setImageFilename(string $imageFilename): static
+    {
+        $this->imageFilename = $imageFilename;
 
         return $this;
     }

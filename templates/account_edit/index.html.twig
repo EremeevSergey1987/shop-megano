@@ -9,9 +9,17 @@
             <div class="wrap">
             {{ form_start(EditUserForm) }}
 
-                <div class="form-group">{{ form_row(EditUserForm.FirstName, {
+                <div class="form-group">
+                    {{ form_row(EditUserForm.imageFilename, {
+                        label: 'Лучшее фото пользователя',
+                        attr: { placeholder: 'Аватарка'}
+                    }) }}
+
+                    {{ form_row(EditUserForm.FirstName, {
                         attr: { placeholder: 'Имя'}
-                    }) }}</div>
+                    }) }}
+
+                </div>
 
 
 

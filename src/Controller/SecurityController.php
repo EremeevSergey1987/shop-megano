@@ -79,6 +79,7 @@ class SecurityController extends AbstractController
             $user = $form->getData();
             $user
                 ->setPassword($passwordHasher->hashPassword($user, $user->getPassword()))
+                ->setImageFilename('/upload/user_avatars/no-avatar.jpeg')
                 ->setRoles(['ROLE_USER']);
             $this->entityManager->persist($user);
             $security->login($user, LoginFormAuthenticator::class);

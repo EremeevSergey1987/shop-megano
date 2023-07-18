@@ -32,7 +32,6 @@ class AccountEditController extends pagesController
         if($form->isSubmitted() && $form->isValid()){
 
             $formData = $form->getData();
-
             $user = $em->getRepository(User::class)->find($this->getUser()->getId());
 
             if (!$user) {
@@ -42,6 +41,9 @@ class AccountEditController extends pagesController
             }
 
             $user->setFirstName($formData->getFirstName());
+
+
+
             $em->flush();
             $this->addFlash('flash_message', 'Данные поменял');
 

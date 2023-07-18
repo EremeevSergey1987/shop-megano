@@ -15,10 +15,18 @@
                     <form class="form Cart" action="#" method="post">
                         <div class="Cart-product">
                             <div class="Cart-block Cart-block_row">
+
                                 <div class="Cart-block Cart-block_info"><a class="Cart-title" href="#">id</a>
                                     <div class="Cart-desc">{{ app.user.id }}
                                     </div>
                                 </div>
+
+                                <div class="Cart-block Cart-block_info"><a class="Cart-title" href="#">avatar</a>
+                                    <div class="Cart-desc">
+                                        <img alt="avatar" src="{{ app.user.imageFilename }}">
+                                    </div>
+                                </div>
+
                                 <div class="Cart-block Cart-block_info"><a class="Cart-title" href="#">Имя пользователя</a>
                                     <div class="Cart-desc">{{ app.user.FirstName }}
                                     </div>

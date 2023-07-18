@@ -24,6 +24,7 @@ class UserFixtures extends BaseFixtures
                 ->setEmail($this->faker->email())
                 ->setFirstName($this->faker->firstName)
                 ->setRoles(['ROLE_USER'])
+                ->setImageFilename('/upload/user_avatars/no-avatar.jpeg')
                 ->setPassword($this->passwordHasher->hashPassword($user, '123456'));
         });
         $this->createMany(User::class, 1, function (User $user){
@@ -31,6 +32,7 @@ class UserFixtures extends BaseFixtures
                 ->setEmail('eremeev87@bk.ru')
                 ->setFirstName('Администратор')
                 ->setRoles(['ROLE_ADMIN'])
+                ->setImageFilename('/upload/user_avatars/no-avatar.jpeg')
                 ->setPassword($this->passwordHasher->hashPassword($user, '123456'));
         });
 

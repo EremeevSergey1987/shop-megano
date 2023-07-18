@@ -50,6 +50,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     )]
     private ?string $FirstName = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $imageFilename = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -129,6 +132,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFirstName(?string $FirstName): self
     {
         $this->FirstName = $FirstName;
+
+        return $this;
+    }
+
+    public function getImageFilename(): ?string
+    {
+        return $this->imageFilename;
+    }
+
+    public function setImageFilename(string $imageFilename): static
+    {
+        $this->imageFilename = $imageFilename;
 
         return $this;
     }
