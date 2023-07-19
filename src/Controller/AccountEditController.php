@@ -4,16 +4,15 @@ namespace App\Controller;
 
 use App\Form\AccountEditFormType;
 use App\Repository\CategoryRepository;
-
+use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
-
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Form\UserRegistrationFormType;
 use App\Entity\User;
+
 /**
  * @IsGranted("ROLE_USER")
  */
@@ -24,6 +23,7 @@ class AccountEditController extends pagesController
         CategoryRepository $repository,
         EntityManagerInterface $em,
         Request $request,
+        FileUploader $UserFileUploader,
     ): Response
     {
         $form = $this->createForm(AccountEditFormType::class);
@@ -41,7 +41,8 @@ class AccountEditController extends pagesController
             }
 
             $user->setFirstName($formData->getFirstName());
-
+            $image = $form['imageFilename']->getData();
+            $user->setImageFilename($UserFileUploader->uploadFile($image));
 
 
             $em->flush();

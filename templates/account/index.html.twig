@@ -23,7 +23,10 @@
 
                                 <div class="Cart-block Cart-block_info"><a class="Cart-title" href="#">avatar</a>
                                     <div class="Cart-desc">
-                                        <img alt="avatar" src="{{ app.user.imageFilename }}">
+
+
+                                        <img alt="avatar" src="upload/user_avatars/{{ app.user.imageFilename }}">
+{#                                        <img alt="avatar" src="{{ uploaded_asset('user_upload', app.user.imageFilename) }}">#}
                                     </div>
                                 </div>
 
