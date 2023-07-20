@@ -32,11 +32,6 @@ class AccountEditFormType extends AbstractType
 
             ])
 
-            ->add('email', TextType::class, [
-                'required' => false,
-                'label' => 'Почта',
-            ])
-
             ->add('FirstName', TextType::class, [
                 'label' => 'Имя',
             ])
@@ -46,7 +41,7 @@ class AccountEditFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => UserEdit::class,
         ]);
     }
 }
