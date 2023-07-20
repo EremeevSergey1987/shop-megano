@@ -15,11 +15,17 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class UserRegistrationFormType extends AbstractType
 {
+
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('FirstName', TextType::class, ['label' => 'Имя'])
-            ->add('email', EmailType::class, ['label' => 'Почта'])
+            ->add('email', EmailType::class, [
+                'label' => 'Почта',
+
+
+            ])
             ->add('captcha', CaptchaType::class, array(
                 'label' => 'Проверка что вы человек',
                 'width' => 264,

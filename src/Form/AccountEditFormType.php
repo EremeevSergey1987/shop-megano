@@ -16,6 +16,12 @@ class AccountEditFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $emailConstraints = [
+            'required' => false,
+        ];
+
+        //if (! $user )
+
         $builder
             ->add('imageFilename', FileType::class, [
                 //'mapped' => false
@@ -25,6 +31,12 @@ class AccountEditFormType extends AbstractType
                 ])
 
             ])
+
+            ->add('email', TextType::class, [
+                'required' => false,
+                'label' => 'Почта',
+            ])
+
             ->add('FirstName', TextType::class, [
                 'label' => 'Имя',
             ])
@@ -34,7 +46,7 @@ class AccountEditFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => UserEdit::class,
+            'data_class' => User::class,
         ]);
     }
 }
