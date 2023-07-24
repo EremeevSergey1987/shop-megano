@@ -8,6 +8,7 @@ use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -42,8 +43,12 @@ class AccountEditController extends pagesController
 
 
             $user->setFirstName($formData->getFirstName());
+
+            /** @var UploadedFile|null $image */
             $image = $form['imageFilename']->getData();
-            $user->setImageFilename($UserFileUploader->uploadFile($image));
+
+            if($image){$user->setImageFilename($UserFileUploader->uploadFile($image));}
+
 
 
 

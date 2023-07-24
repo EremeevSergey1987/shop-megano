@@ -27,7 +27,7 @@ class AccountEditFormType extends AbstractType
                 //'mapped' => false
                 'required' => false,
                 'constraints' => new Image([
-                    'maxSize' => '300K',
+                    'maxSize' => '100K',
                 ])
 
             ])

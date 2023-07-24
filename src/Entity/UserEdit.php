@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -51,6 +52,7 @@ class UserEdit implements UserInterface, PasswordAuthenticatedUserInterface
         maxMessage: 'Ваше имя не может быть больше {{ limit }} символов в длину',
     )]
     private ?string $FirstName = null;
+
 
     public function getId(): ?int
     {

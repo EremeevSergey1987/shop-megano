@@ -13,6 +13,7 @@
         "gregwar/captcha-bundle": "^2.2",
         "knplabs/knp-paginator-bundle": "^6.2",
         "league/html-to-markdown": "^5.1",
+        "liip/imagine-bundle": "^2.1",
         "sensio/framework-extra-bundle": "^6.2",
         "stof/doctrine-extensions-bundle": "^1.7",
         "symfony/asset": "6.2.*",
