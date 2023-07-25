@@ -40,18 +40,13 @@ class AccountEditController extends pagesController
                     'No user found for id ' . $this->getUser()->getId()
                 );
             }
-
-
             $user->setFirstName($formData->getFirstName());
-
             /** @var UploadedFile|null $image */
             $image = $form['imageFilename']->getData();
-
-            if($image){$user->setImageFilename($UserFileUploader->uploadFile($image));}
-
-
-
-
+            if($image)
+            {
+                $user->setImageFilename($UserFileUploader->uploadFile($image));
+            }
             $em->flush();
             $this->addFlash('flash_message', 'Данные поменял');
 

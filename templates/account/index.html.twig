@@ -23,19 +23,7 @@
 
                                 <div class="Cart-block Cart-block_info"><a class="Cart-title" href="#">avatar</a>
                                     <div class="Cart-desc">
-
-{{ dump(app.user) }}
-                                        <img
-                                           alt="avatar"
-                                           src="upload/user_avatars/{{ (app.user.imageFilename) | imagine_filter('avatar_image') }}"
-                                        >
-
-{#                                        <img src="{{ asset('/relative/path/to/image.jpg') | imagine_filter('my_thumb') }}" />#}
-                                       <img alt="avatar" src="{{ uploaded_asset('user_upload', app.user.imageFilename) | imagine_filter('avatar_image') }}">
-
-
-
-
+                                        <img alt="avatar" src="{{ uploaded_asset('user_upload', user.imageFilename) }}" >
                                     </div>
                                 </div>
 

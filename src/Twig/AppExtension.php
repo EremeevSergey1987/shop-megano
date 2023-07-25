@@ -13,7 +13,6 @@ class AppExtension extends AbstractExtension
     {
         return [
             new TwigFunction('uploaded_asset', [AppUploadedAsset::class, 'asset']),
-
         ];
     }
 
